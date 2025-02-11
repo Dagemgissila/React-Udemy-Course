@@ -1,20 +1,51 @@
+import { shareMeal } from "@/lib/action";
 import classes from "./page.module.css";
-import Image from "next/image";
-const page = () => {
+import ImagePicker from "@/components/meals/image-picker";
+import { MealFormSubmit } from "@/lib/meal-form-submit";
+export default function ShareMealPage() {
   return (
     <>
       <header className={classes.header}>
-        <div className={classes.image}>
-          <Image fill />
-        </div>
-
-        <div className={classes.headerText}>
-          <h1>Title</h1>
-        </div>
+        <h1>
+          Share your <span className={classes.highlight}>favorite meal</span>
+        </h1>
+        <p>Or any other meal you feel needs sharing!</p>
       </header>
-      <main></main>
+      <main className={classes.main}>
+        <form className={classes.form} action={shareMeal}>
+          <div className={classes.row}>
+            <p>
+              <label htmlFor="name">Your name</label>
+              <input type="text" id="name" name="name" required />
+            </p>
+            <p>
+              <label htmlFor="email">Your email</label>
+              <input type="email" id="email" name="email" required />
+            </p>
+          </div>
+          <p>
+            <label htmlFor="title">Title</label>
+            <input type="text" id="title" name="title" required />
+          </p>
+          <p>
+            <label htmlFor="summary">Short Summary</label>
+            <input type="text" id="summary" name="summary" required />
+          </p>
+          <p>
+            <label htmlFor="instructions">Instructions</label>
+            <textarea
+              id="instructions"
+              name="instructions"
+              rows="10"
+              required
+            ></textarea>
+          </p>
+          <ImagePicker label="select image" name="image" />
+          <p className={classes.actions}>
+            <MealFormSubmit />
+          </p>
+        </form>
+      </main>
     </>
   );
-};
-
-export default page;
+}
